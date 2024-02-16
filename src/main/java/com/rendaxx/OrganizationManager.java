@@ -3,6 +3,7 @@ package com.rendaxx;
 import com.rendaxx.collection_object.Organization;
 import com.rendaxx.interrogators.Interrogate;
 
+import java.io.EOFException;
 import java.util.LinkedHashSet;
 
 public class OrganizationManager implements OrganizationServer {
@@ -14,7 +15,7 @@ public class OrganizationManager implements OrganizationServer {
     }
 
     @Override
-    public void addElement() {
+    public void addElement() throws EOFException {
         Organization org = new OrganizationBuilder(interrogator)
                 .setId()
                 .setName()

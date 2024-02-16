@@ -6,6 +6,7 @@ import com.rendaxx.collection_object.Organization;
 import com.rendaxx.collection_object.OrganizationType;
 import com.rendaxx.interrogators.Interrogate;
 
+import java.io.EOFException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
@@ -34,15 +35,13 @@ public class OrganizationBuilder implements OrganizationBuilderInterface {
     }
 
     @Override
-    public OrganizationBuilderInterface setName() {
-        String name = interrogator.askName();
-
-        this.name =
+    public OrganizationBuilderInterface setName() throws EOFException {
+        this.name = interrogator.askName();
         return this;
     }
 
     @Override
-    public OrganizationBuilderInterface setCoordinates() {
+    public OrganizationBuilderInterface setCoordinates() throws EOFException {
         this.coordinates = interrogator.askCoordinates();
         return this;
     }
@@ -54,31 +53,31 @@ public class OrganizationBuilder implements OrganizationBuilderInterface {
     }
 
     @Override
-    public OrganizationBuilderInterface setAnnualTurnover() {
+    public OrganizationBuilderInterface setAnnualTurnover() throws EOFException {
         this.annualTurnover = interrogator.askAnnualTurnover();
         return this;
     }
 
     @Override
-    public OrganizationBuilderInterface setFullName() {
+    public OrganizationBuilderInterface setFullName() throws EOFException {
         this.fullName = interrogator.askFullName();
         return this;
     }
 
     @Override
-    public OrganizationBuilderInterface setEmployeesCount() {
+    public OrganizationBuilderInterface setEmployeesCount() throws EOFException {
         this.employeesCount = interrogator.askEmployeesCount();
         return this;
     }
 
     @Override
-    public OrganizationBuilderInterface setType() {
+    public OrganizationBuilderInterface setType() throws EOFException {
         this.type = interrogator.askType();
         return this;
     }
 
     @Override
-    public OrganizationBuilderInterface setPostalAddress() {
+    public OrganizationBuilderInterface setPostalAddress() throws EOFException {
         this.postalAddress = interrogator.askPostalAddress();
         return this;
     }

@@ -6,6 +6,8 @@ import com.rendaxx.interrogators.Interrogate;
 import com.rendaxx.interrogators.InterrogatorCLI;
 import com.rendaxx.interrogators.InterrogatorFile;
 
+import java.io.EOFException;
+
 public class AddCommand extends Command {
     private static final String NAME = "add";
     private static final String ARGS = "{element}";
@@ -18,7 +20,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void run(String[] args) {
+    public void run(String[] args) throws EOFException {
         organizationServer.addElement();
     }
 }

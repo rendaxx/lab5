@@ -23,8 +23,8 @@ public class InterrogatorFile implements Interrogate {
     }
 
     @Override
-    public Integer askAnnualTurnover() {
-        return null;
+    public long askAnnualTurnover() {
+        return 0;
     }
 
     @Override
@@ -33,8 +33,8 @@ public class InterrogatorFile implements Interrogate {
     }
 
     @Override
-    public Long askEmployeesCount() {
-        return null;
+    public long askEmployeesCount() {
+        return 0;
     }
 
     @Override

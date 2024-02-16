@@ -1,7 +1,7 @@
 package com.rendaxx.validators;
 
 public class fullNameValidator {
-    boolean validate(String name) {
-        return name != null && !name.isEmpty();
+    public static boolean isValid(String fullName) {
+        return fullName.length() <= 1311;
     }
 }

@@ -4,6 +4,7 @@ import com.rendaxx.commands.AddCommand;
 import com.rendaxx.commands.Command;
 import com.rendaxx.exceptions.UnknownCommandException;
 
+import java.io.EOFException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class CommandManager {
         commandByName.put(c.getName(), c);
     }
 
-    public void execute(CommandInput input) throws UnknownCommandException {
+    public void execute(CommandInput input) throws UnknownCommandException, EOFException {
         Command command = commandByName.get(input.getName());
         if (command == null) {
             throw new UnknownCommandException(input.getName());

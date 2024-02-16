@@ -1,5 +1,7 @@
 package com.rendaxx.commands;
 
+import java.io.EOFException;
+
 public abstract class Command {
     private final String name;
     private final String possibleArgs;
@@ -24,5 +26,5 @@ public abstract class Command {
         return description;
     }
 
-    public abstract void run(String[] args);
+    public abstract void run(String[] args) throws EOFException;
 }

@@ -4,6 +4,7 @@ import com.rendaxx.exceptions.UnknownCommandException;
 import com.rendaxx.interrogators.InterrogatorCLI;
 import com.rendaxx.interrogators.InterrogatorFile;
 
+import java.io.EOFException;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -24,6 +25,8 @@ public class InputHandler {
                 commandManager.execute(input);
             } catch (UnknownCommandException e) {
                 System.err.println("Command " + e.getMessage() + " does not exist. Type <help> for available commands.");
+            } catch (EOFException e) {
+                return;
             }
         }
     }
