@@ -1,6 +1,10 @@
 package com.rendaxx.commands;
 
+import com.rendaxx.exceptions.InvalidArgumentCountException;
+import com.rendaxx.exceptions.WrongInputException;
+
 import java.io.EOFException;
+import java.io.IOException;
 
 public abstract class Command {
     private final String name;
@@ -26,5 +30,5 @@ public abstract class Command {
         return description;
     }
 
-    public abstract void run(String[] args) throws EOFException;
+    public abstract void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException;
 }

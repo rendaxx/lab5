@@ -1,16 +1,29 @@
 package com.rendaxx.collection_object;
 
+import com.rendaxx.OrganizationServer;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Random;
+@Setter
+@Getter
+@AllArgsConstructor
+public class Organization implements Comparable<Organization> {
+    private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private String name; //Поле не может быть null, Строка не может быть пустой
+    private Coordinates coordinates; //Поле не может быть null
+    private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private long annualTurnover; //Значение поля должно быть больше 0
+    private String fullName; //Длина строки не должна быть больше 1311, Поле может быть null
+    private long employeesCount; //Значение поля должно быть больше 0
+    private OrganizationType type; //Поле может быть null
+    private Address postalAddress; //Поле не может быть null
 
-public record Organization(Long id, String name, Coordinates coordinates,
-                           Date creationDate, long annualTurnover, String fullName,
-                           long employeesCount, OrganizationType type, Address postalAddress) {
-    public Organization(String name, Coordinates coordinates, long annualTurnover, String fullName,
-                        long employeesCount, OrganizationType type, Address postalAddress) {
-        this(new Random().nextLong(Long.MAX_VALUE), name, coordinates, new Date(), annualTurnover,
-                fullName, employeesCount, type, postalAddress);
+    public Organization() {
+
     }
 
     @Override
@@ -26,5 +39,10 @@ public record Organization(Long id, String name, Coordinates coordinates,
                 ", type=" + type +
                 ", postalAddress=" + postalAddress +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Organization o) {
+        return Long.compare(this.annualTurnover, o.annualTurnover);
     }
 }

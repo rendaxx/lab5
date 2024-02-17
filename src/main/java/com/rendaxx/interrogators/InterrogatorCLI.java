@@ -4,27 +4,25 @@ import com.rendaxx.collection_object.Address;
 import com.rendaxx.collection_object.Coordinates;
 import com.rendaxx.collection_object.OrganizationType;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.validators.annualTurnoverValidator;
-import com.rendaxx.validators.coordinatesValidator;
-import com.rendaxx.validators.employeesCountValidator;
-import com.rendaxx.validators.nameValidator;
+import com.rendaxx.validators.*;
 
-import java.io.EOFException;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InterrogatorCLI implements Interrogate {
-    Scanner in;
-    public InterrogatorCLI(Scanner sc) {
-        in = sc;
+    BufferedReader in;
+    public InterrogatorCLI(BufferedReader br) {
+        in = br;
     }
 
-    private String askString() throws EOFException {
+    private String askString() throws IOException {
         while (true) {
+            String line = in.readLine();
+            if (line == null) throw new IOException();
             try {
-                if (!in.hasNext()) throw new EOFException();
-                String line = in.nextLine();
                 if (!nameValidator.isValid(line)) {
                     throw new WrongInputException();
                 }
@@ -35,16 +33,17 @@ public class InterrogatorCLI implements Interrogate {
         }
     }
     @Override
-    public String askName() throws EOFException {
+    public String askName() throws IOException {
         System.out.println("Enter organization name:");
         return askString();
     }
 
-    private Double askX() throws EOFException {
+    private Double askX() throws IOException {
         while (true) {
-            if (!in.hasNext()) throw new EOFException();
+            String line = in.readLine();
+            if (line == null) throw new IOException();
             try {
-                Double x = Double.parseDouble(in.nextLine());
+                Double x = Double.parseDouble(line);
                 if (!coordinatesValidator.isValidX(x)) {
                     throw new WrongInputException();
                 }
@@ -57,11 +56,12 @@ public class InterrogatorCLI implements Interrogate {
         }
     }
 
-    private Double askY() throws EOFException {
+    private Double askY() throws IOException {
         while (true) {
-            if (!in.hasNext()) throw new EOFException();
+            String line = in.readLine();
+            if (line == null) throw new IOException();
             try {
-                Double y = Double.parseDouble(in.nextLine());
+                Double y = Double.parseDouble(line);
                 if (!coordinatesValidator.isValidY(y)) {
                     throw new WrongInputException();
                 }
@@ -76,7 +76,7 @@ public class InterrogatorCLI implements Interrogate {
 
 
     @Override
-    public Coordinates askCoordinates() throws EOFException {
+    public Coordinates askCoordinates() throws IOException {
         System.out.println("Enter the X coordinate: ");
         Double x = askX();
         System.out.println("Enter the Y coordinate: ");
@@ -85,17 +85,18 @@ public class InterrogatorCLI implements Interrogate {
     }
 
     @Override
-    public long askAnnualTurnover() throws EOFException {
+    public long askAnnualTurnover() throws IOException {
         System.out.println("Enter annual turnover: ");
         while (true) {
-            if (!in.hasNext()) throw new EOFException();
+            String line = in.readLine();
+            if (line == null) throw new IOException();
             try {
-                long x = Long.parseLong(in.nextLine());
+                long x = Long.parseLong(line);
                 if (!annualTurnoverValidator.isValid(x)) {
                     throw new WrongInputException();
                 }
                 return x;
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.err.println("Input sequence is not a number. Try again.");
             } catch (WrongInputException e) {
                 System.err.println("This field can't be lower than 0. Try again.");
@@ -104,16 +105,16 @@ public class InterrogatorCLI implements Interrogate {
     }
 
     @Override
-    public String askFullName() throws EOFException {
+    public String askFullName() throws IOException {
         System.out.println("Enter the full name: ");
         while (true) {
-            if (!in.hasNext()) throw new EOFException();
+            String line = in.readLine();
+            if (line == null) throw new IOException();
             try {
-                String name = in.nextLine();
-                if (nameValidator.isValid(name)) {
+                if (!fullNameValidator.isValid(line)) {
                     throw new WrongInputException();
                 }
-                return name;
+                return line;
             } catch (WrongInputException e) {
                 System.err.println("Name can't be longer than 1311 symbols. Try again.");
             }
@@ -121,17 +122,18 @@ public class InterrogatorCLI implements Interrogate {
     }
 
     @Override
-    public long askEmployeesCount() throws EOFException {
+    public long askEmployeesCount() throws IOException {
         System.out.println("Enter employees count:");
         while (true) {
-            if (!in.hasNext()) throw new EOFException();
+            String line = in.readLine();
+            if (line == null) throw new IOException();
             try {
-                long x = Long.parseLong(in.nextLine());
+                long x = Long.parseLong(line);
                 if (!employeesCountValidator.isValid(x)) {
                     throw new WrongInputException();
                 }
                 return x;
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.err.println("Input sequence is not a number. Try again.");
             } catch (WrongInputException e) {
                 System.err.println("This field can't be lower than 0. Try again.");
@@ -140,16 +142,16 @@ public class InterrogatorCLI implements Interrogate {
     }
 
     @Override
-    public OrganizationType askType() throws EOFException {
+    public OrganizationType askType() throws IOException {
         System.out.println("Choose organization type:");
         System.out.println("1: PUBLIC");
         System.out.println("2: GOVERNMENT");
         System.out.println("3: OPEN_JOINT_STOCK_COMPANY");
         while (true) {
-            if (!in.hasNext()) throw new EOFException();
+            String line = in.readLine();
+            if (line == null) throw new IOException();
             try {
-                String type = in.nextLine();
-                return switch (type) {
+                return switch (line) {
                     case ("1") -> OrganizationType.PUBLIC;
                     case ("2") -> OrganizationType.GOVERNMENT;
                     case ("3") -> OrganizationType.OPEN_JOINT_STOCK_COMPANY;
@@ -162,7 +164,7 @@ public class InterrogatorCLI implements Interrogate {
     }
 
     @Override
-    public Address askPostalAddress() throws EOFException {
+    public Address askPostalAddress() throws IOException {
         System.out.println("Enter address: ");
         String street = askString();
         System.out.println("Enter zip code: ");
