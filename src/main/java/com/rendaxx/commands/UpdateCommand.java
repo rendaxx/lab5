@@ -1,8 +1,6 @@
 package com.rendaxx.commands;
 
-import com.rendaxx.OrganizationBuilder;
-import com.rendaxx.OrganizationServer;
-import com.rendaxx.collection_object.Organization;
+import com.rendaxx.CollectionServer;
 import com.rendaxx.exceptions.InvalidArgumentCountException;
 import com.rendaxx.exceptions.WrongInputException;
 
@@ -13,10 +11,10 @@ public class UpdateCommand extends Command{
     private static final String ARGS = "id {element}";
     private static final String DESC = "updates element by his id";
 
-    OrganizationServer organizationServer;
-    public UpdateCommand(OrganizationServer organizationServer) {
+    CollectionServer collectionServer;
+    public UpdateCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
-        this.organizationServer = organizationServer;
+        this.collectionServer = collectionServer;
     }
     @Override
     public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
@@ -29,6 +27,6 @@ public class UpdateCommand extends Command{
         } catch (NumberFormatException e) {
             throw new WrongInputException();
         }
-        organizationServer.updateElement(id);
+        collectionServer.updateElement(id);
     }
 }

@@ -6,18 +6,19 @@ import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
 
-public class InfoCommand extends Command {
-    private static final String NAME = "info";
+public class PrintAscendingFullCommand extends Command {
+    private static final String NAME = "print_field_ascending_full_name";
     private static final String ARGS = "";
-    private static final String DESC = "prints collection's info";
+    private static final String DESC = "prints all fullNames sorted";
 
     CollectionServer collectionServer;
-    public InfoCommand(CollectionServer collectionServer) {
+    public PrintAscendingFullCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
     }
+
     @Override
     public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
-        collectionServer.collectionInfo();
+        collectionServer.printsAscending();
     }
 }

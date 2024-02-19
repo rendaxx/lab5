@@ -30,5 +30,10 @@ public abstract class Command {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return getName() + (getPossibleArgs().isEmpty() ? "" : " ") + getPossibleArgs() + ": " + getDescription();
+    }
+
     public abstract void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException;
 }

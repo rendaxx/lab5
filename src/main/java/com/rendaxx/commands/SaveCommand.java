@@ -2,22 +2,28 @@ package com.rendaxx.commands;
 
 import com.rendaxx.CollectionServer;
 import com.rendaxx.exceptions.InvalidArgumentCountException;
+import com.rendaxx.exceptions.NoFileException;
 import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
 
-public class InfoCommand extends Command {
-    private static final String NAME = "info";
+public class SaveCommand extends Command {
+    private static final String NAME = "save";
     private static final String ARGS = "";
-    private static final String DESC = "prints collection's info";
+    private static final String DESC = "saves collection in csv format";
 
     CollectionServer collectionServer;
-    public InfoCommand(CollectionServer collectionServer) {
+    public SaveCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
     }
     @Override
     public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
-        collectionServer.collectionInfo();
+        try {
+            collectionServer.save();
+        } catch (NoFileException e) {
+            System.err.println("You can't use this command.");
+        }
+
     }
 }

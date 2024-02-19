@@ -1,24 +1,51 @@
 package com.rendaxx;
 
 import com.rendaxx.collection_object.Organization;
+import com.rendaxx.exceptions.NoFileException;
 import com.rendaxx.exceptions.WrongInputException;
 import com.rendaxx.interrogators.Interrogate;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 
-public class OrganizationManager implements OrganizationServer {
+public class OrganizationManager implements CollectionServer {
+    private static OrganizationManager singleton;
     private LinkedHashSet<Organization> organizations;
     private Interrogate interrogator;
     private LocalDateTime lastInitTime;
     private LocalDateTime lastSaveTime;
 
-    public OrganizationManager(Interrogate i) {
-        this.interrogator = i;
+    private CollectionStreamer<LinkedHashSet<Organization>> collectionStreamer;
+
+    public static OrganizationManager getInstance() {
+        if (singleton == null)
+            singleton = new OrganizationManager();
+        return singleton;
+    }
+
+    private OrganizationManager() {
         organizations = new LinkedHashSet<>();
+        lastInitTime = LocalDateTime.now();
+    }
+
+    @Override
+    public void setInterrogator(Interrogate interrogator) {
+        this.interrogator = interrogator;
+    }
+
+    @Override
+    public void deleteInvalidElements() {
+        organizations.stream().filter(o -> !o.validate()).forEach(organizations::remove);
+    }
+
+    public void setOrganizations(LinkedHashSet<Organization> organizations) {
+        this.organizations = organizations;
+    }
+
+    public void setCollectionStreamer(CollectionStreamer<LinkedHashSet<Organization>> collectionStreamer) {
+        this.collectionStreamer = collectionStreamer;
     }
 
     @Override
@@ -102,5 +129,69 @@ public class OrganizationManager implements OrganizationServer {
         }
     }
 
+    @Override
+    public void removeGreater() throws IOException, WrongInputException {
+        Organization org = new OrganizationBuilder(interrogator)
+                .setId()
+                .setName()
+                .setCoordinates()
+                .setCreationDate()
+                .setAnnualTurnover()
+                .setFullName()
+                .setEmployeesCount()
+                .setType()
+                .setPostalAddress()
+                .build();
+        organizations.stream().filter(o -> o.compareTo(org) > 0).forEach(organizations::remove);
+    }
+
+    @Override
+    public void removeLower() throws IOException, WrongInputException {
+        Organization org = new OrganizationBuilder(interrogator)
+                .setId()
+                .setName()
+                .setCoordinates()
+                .setCreationDate()
+                .setAnnualTurnover()
+                .setFullName()
+                .setEmployeesCount()
+                .setType()
+                .setPostalAddress()
+                .build();
+        organizations.stream().filter(o -> o.compareTo(org) < 0).forEach(organizations::remove);
+    }
+
+    @Override
+    public void sumOfAnnual() {
+        Long result = organizations.stream().map(Organization::getAnnualTurnover).reduce(0L, Long::sum);
+        System.out.println("Sum of annualTurnover is: " + result);
+    }
+
+    @Override
+    public void filterStartsWithName(String name) {
+        organizations.stream().filter(o -> o.getName().startsWith(name)).forEach(System.out::println);
+    }
+
+    @Override
+    public void printsAscending() {
+        organizations.stream().map(Organization::getFullName).sorted().forEach(System.out::println);
+    }
+
+    @Override
+    public void save() throws NoFileException {
+        if (collectionStreamer == null) {
+            throw new RuntimeException("No collection streamer == no saving >:(");
+        }
+        collectionStreamer.saveToFile(organizations);
+    }
+
+    @Override
+    public void load() throws NoFileException {
+        if (collectionStreamer == null) {
+            throw new RuntimeException("No collection streamer == no loading >:(");
+        }
+        organizations = collectionStreamer.readFromFile();
+        deleteInvalidElements();
+    }
 
 }

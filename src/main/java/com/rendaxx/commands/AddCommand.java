@@ -1,6 +1,6 @@
 package com.rendaxx.commands;
 
-import com.rendaxx.OrganizationServer;
+import com.rendaxx.CollectionServer;
 import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
@@ -10,14 +10,14 @@ public class AddCommand extends Command {
     private static final String ARGS = "{element}";
     private static final String DESC = "adds element in collection";
 
-    OrganizationServer organizationServer;
-    public AddCommand(OrganizationServer organizationServer) {
+    CollectionServer collectionServer;
+    public AddCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
-        this.organizationServer = organizationServer;
+        this.collectionServer = collectionServer;
     }
 
     @Override
     public void run(String[] args) throws IOException, WrongInputException {
-        organizationServer.addElement();
+        collectionServer.addElement();
     }
 }

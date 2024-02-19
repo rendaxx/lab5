@@ -9,15 +9,15 @@ import com.rendaxx.interrogators.InterrogatorFile;
 import java.io.*;
 
 public class InputHandler {
-
+    LineCounter linesReadCount = new LineCounter();
     public void runInputProcessor(InputStream is, ConsoleMode cm) throws BadScriptException {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
-        OrganizationServer organizationServer = null;
+        CollectionServer collectionServer = OrganizationManager.getInstance();
         switch (cm) {
-            case CLIMode -> organizationServer = new OrganizationManager(new InterrogatorCLI(in));
-            case FileMode -> organizationServer = new OrganizationManager(new InterrogatorFile(in));
+            case CLIMode -> collectionServer.setInterrogator(new InterrogatorCLI(in, linesReadCount));
+            case FileMode -> collectionServer.setInterrogator(new InterrogatorFile(in, linesReadCount));
         }
-        CommandManager commandManager = new CommandManager(organizationServer);
+        CommandManager commandManager = new CommandManager(collectionServer);
         while (true) {
             try {
                 String line = in.readLine();
@@ -27,6 +27,7 @@ public class InputHandler {
                         case FileMode -> throw new EOFException();
                     }
                 }
+                linesReadCount.increment();
                 CommandInput input = new CommandInput(line);
                 commandManager.execute(input);
             } catch (UnknownCommandException e) {
@@ -39,7 +40,7 @@ public class InputHandler {
             } catch (WrongInputException e) {
                 switch (cm) {
                     case CLIMode -> System.err.println(e.getMessage()); // TODO
-                    case FileMode -> throw new BadScriptException("Script had a problem: " + e.getMessage());
+                    case FileMode -> throw new BadScriptException("Script had a problem at line " + linesReadCount.getLinesCount() + ": " + e.getMessage());
                 }
             } catch (EOFException e) {
                 return;

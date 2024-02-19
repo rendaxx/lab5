@@ -19,7 +19,6 @@ public class HelpCommand extends Command {
 
     @Override
     public void run(String[] args) throws IOException {
-        commandByName.values().forEach(command ->
-        {System.out.println(command.getName() + (command.getPossibleArgs().isEmpty() ? "" :  " ") + command.getPossibleArgs() + ": " + command.getDescription());});
+        commandByName.values().forEach(System.out::println);
     }
 }

@@ -6,18 +6,19 @@ import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
 
-public class InfoCommand extends Command {
-    private static final String NAME = "info";
-    private static final String ARGS = "";
-    private static final String DESC = "prints collection's info";
+public class RemoveLowerCommand extends Command {
+    private static final String NAME = "remove_greater";
+    private static final String ARGS = "{element}";
+    private static final String DESC = "removes all elements greater that {element}";
 
     CollectionServer collectionServer;
-    public InfoCommand(CollectionServer collectionServer) {
+    public RemoveLowerCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
     }
+
     @Override
     public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
-        collectionServer.collectionInfo();
+        collectionServer.removeLower();
     }
 }

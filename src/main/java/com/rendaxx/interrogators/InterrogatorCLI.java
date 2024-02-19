@@ -1,5 +1,6 @@
 package com.rendaxx.interrogators;
 
+import com.rendaxx.LineCounter;
 import com.rendaxx.collection_object.Address;
 import com.rendaxx.collection_object.Coordinates;
 import com.rendaxx.collection_object.OrganizationType;
@@ -8,20 +9,25 @@ import com.rendaxx.validators.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class InterrogatorCLI implements Interrogate {
     BufferedReader in;
-    public InterrogatorCLI(BufferedReader br) {
+    LineCounter linesReadCount;
+    public InterrogatorCLI(BufferedReader br, LineCounter lrc) {
         in = br;
+        linesReadCount = lrc;
+    }
+
+    private String readLine() throws IOException {
+        String line = in.readLine();
+        if (line == null) throw new IOException();
+        linesReadCount.increment();
+        return line;
     }
 
     private String askString() throws IOException {
         while (true) {
-            String line = in.readLine();
-            if (line == null) throw new IOException();
+            String line = readLine();
             try {
                 if (!nameValidator.isValid(line)) {
                     throw new WrongInputException();
@@ -40,8 +46,7 @@ public class InterrogatorCLI implements Interrogate {
 
     private Double askX() throws IOException {
         while (true) {
-            String line = in.readLine();
-            if (line == null) throw new IOException();
+            String line = readLine();
             try {
                 Double x = Double.parseDouble(line);
                 if (!coordinatesValidator.isValidX(x)) {
@@ -58,8 +63,7 @@ public class InterrogatorCLI implements Interrogate {
 
     private Double askY() throws IOException {
         while (true) {
-            String line = in.readLine();
-            if (line == null) throw new IOException();
+            String line = readLine();
             try {
                 Double y = Double.parseDouble(line);
                 if (!coordinatesValidator.isValidY(y)) {
@@ -88,8 +92,7 @@ public class InterrogatorCLI implements Interrogate {
     public long askAnnualTurnover() throws IOException {
         System.out.println("Enter annual turnover: ");
         while (true) {
-            String line = in.readLine();
-            if (line == null) throw new IOException();
+            String line = readLine();
             try {
                 long x = Long.parseLong(line);
                 if (!annualTurnoverValidator.isValid(x)) {
@@ -108,8 +111,7 @@ public class InterrogatorCLI implements Interrogate {
     public String askFullName() throws IOException {
         System.out.println("Enter the full name: ");
         while (true) {
-            String line = in.readLine();
-            if (line == null) throw new IOException();
+            String line = readLine();
             try {
                 if (!fullNameValidator.isValid(line)) {
                     throw new WrongInputException();
@@ -125,8 +127,7 @@ public class InterrogatorCLI implements Interrogate {
     public long askEmployeesCount() throws IOException {
         System.out.println("Enter employees count:");
         while (true) {
-            String line = in.readLine();
-            if (line == null) throw new IOException();
+            String line = readLine();
             try {
                 long x = Long.parseLong(line);
                 if (!employeesCountValidator.isValid(x)) {
@@ -148,8 +149,7 @@ public class InterrogatorCLI implements Interrogate {
         System.out.println("2: GOVERNMENT");
         System.out.println("3: OPEN_JOINT_STOCK_COMPANY");
         while (true) {
-            String line = in.readLine();
-            if (line == null) throw new IOException();
+            String line = readLine();
             try {
                 return switch (line) {
                     case ("1") -> OrganizationType.PUBLIC;

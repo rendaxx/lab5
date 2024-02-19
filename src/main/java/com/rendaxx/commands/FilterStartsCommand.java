@@ -6,13 +6,13 @@ import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
 
-public class RemoveByIDCommand extends Command {
-    private static final String NAME = "remove_by_id";
-    private static final String ARGS = "id";
-    private static final String DESC = "removes element by his id";
+public class FilterStartsCommand extends Command {
+    private static final String NAME = "filter_starts_with_name";
+    private static final String ARGS = "name";
+    private static final String DESC = "prints all elements whose name field starts with {name}";
 
     CollectionServer collectionServer;
-    public RemoveByIDCommand(CollectionServer collectionServer) {
+    public FilterStartsCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
     }
@@ -22,12 +22,7 @@ public class RemoveByIDCommand extends Command {
         if (args.length != 1) {
             throw new InvalidArgumentCountException();
         }
-        Long id = null;
-        try {
-            id = Long.parseLong(args[0]);
-        } catch (NumberFormatException e) {
-            throw new WrongInputException();
-        }
-        collectionServer.removeElementById(id);
+        String name = args[0];
+        collectionServer.filterStartsWithName(name);
     }
 }
