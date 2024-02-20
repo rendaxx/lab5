@@ -11,14 +11,14 @@ public class ClearCommand extends Command {
     private static final String ARGS = "";
     private static final String DESC = "clears collection";
 
-    CollectionServer collectionServer;
+    final CollectionServer collectionServer;
     public ClearCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
     }
 
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) {
         collectionServer.clearCollection();
     }
 }

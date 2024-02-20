@@ -1,15 +1,20 @@
-package com.rendaxx;
+package com.rendaxx.IO;
 
+import com.rendaxx.CollectionServer;
+import com.rendaxx.CommandManager;
+import com.rendaxx.OrganizationManager;
 import com.rendaxx.exceptions.BadScriptException;
 import com.rendaxx.exceptions.UnknownCommandException;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.interrogators.InterrogatorCLI;
-import com.rendaxx.interrogators.InterrogatorFile;
+import com.rendaxx.IO.interrogators.InterrogatorCLI;
+import com.rendaxx.IO.interrogators.InterrogatorFile;
+import com.rendaxx.utilities.ConsoleMode;
+import com.rendaxx.utilities.LineCounter;
 
 import java.io.*;
 
 public class InputHandler {
-    LineCounter linesReadCount = new LineCounter();
+    final LineCounter linesReadCount = new LineCounter();
     public void runInputProcessor(InputStream is, ConsoleMode cm) throws BadScriptException {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
         CollectionServer collectionServer = OrganizationManager.getInstance();

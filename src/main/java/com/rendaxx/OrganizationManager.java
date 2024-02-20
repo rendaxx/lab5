@@ -1,9 +1,11 @@
 package com.rendaxx;
 
+import com.rendaxx.IO.CollectionStreamer;
 import com.rendaxx.collection_object.Organization;
 import com.rendaxx.exceptions.NoFileException;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.interrogators.Interrogate;
+import com.rendaxx.IO.interrogators.Interrogate;
+import com.rendaxx.utilities.OrganizationBuilder;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

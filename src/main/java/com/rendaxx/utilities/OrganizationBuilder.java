@@ -1,11 +1,8 @@
-package com.rendaxx;
+package com.rendaxx.utilities;
 
-import com.rendaxx.collection_object.Address;
-import com.rendaxx.collection_object.Coordinates;
 import com.rendaxx.collection_object.Organization;
-import com.rendaxx.collection_object.OrganizationType;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.interrogators.Interrogate;
+import com.rendaxx.IO.interrogators.Interrogate;
 
 import java.io.IOException;
 import java.util.Date;

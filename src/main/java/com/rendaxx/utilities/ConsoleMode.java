@@ -1,4 +1,4 @@
-package com.rendaxx;
+package com.rendaxx.utilities;
 
 public enum ConsoleMode {
     CLIMode,

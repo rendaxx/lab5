@@ -1,5 +1,6 @@
 package com.rendaxx;
 
+import com.rendaxx.IO.CommandInput;
 import com.rendaxx.commands.*;
 import com.rendaxx.exceptions.UnknownCommandException;
 import com.rendaxx.exceptions.WrongInputException;
@@ -8,7 +9,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 
 public class CommandManager {
-    private LinkedHashMap<String, Command> commandByName;
+    private final LinkedHashMap<String, Command> commandByName;
 
     public CommandManager(CollectionServer server) {
         commandByName = new LinkedHashMap<>();
@@ -19,7 +20,7 @@ public class CommandManager {
         commandByName.put("update", new UpdateCommand(server));
         commandByName.put("remove_by_id", new RemoveByIDCommand(server));
         commandByName.put("clear", new ClearCommand(server));
-        // TODO: save command
+        commandByName.put("save", new SaveCommand(server));
         commandByName.put("execute_script", new ExecuteScriptCommand());
         commandByName.put("exit", new ExitCommand());
         commandByName.put("add_if_min", new AddIfMinCommand(server));

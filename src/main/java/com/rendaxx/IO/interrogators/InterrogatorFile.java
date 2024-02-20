@@ -1,18 +1,15 @@
-package com.rendaxx.interrogators;
+package com.rendaxx.IO.interrogators;
 
-import com.rendaxx.LineCounter;
+import com.rendaxx.utilities.LineCounter;
 import com.rendaxx.collection_object.Address;
 import com.rendaxx.collection_object.Coordinates;
 import com.rendaxx.collection_object.OrganizationType;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.validators.*;
+import com.rendaxx.field_validators.*;
 
-import javax.sound.sampled.Line;
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class InterrogatorFile implements Interrogate {
 
@@ -33,7 +30,7 @@ public class InterrogatorFile implements Interrogate {
     private String askString() throws IOException, WrongInputException {
         String line = readLine();
         try {
-            if (!nameValidator.isValid(line)) {
+            if (nameValidator.notValid(line)) {
                 throw new WrongInputException();
             }
             return line;
@@ -44,7 +41,7 @@ public class InterrogatorFile implements Interrogate {
     @Override
     public String askName() throws IOException, WrongInputException {
         String line = readLine();
-        if (!nameValidator.isValid(line)) {
+        if (nameValidator.notValid(line)) {
             throw new WrongInputException();
         }
         return line;
@@ -54,7 +51,7 @@ public class InterrogatorFile implements Interrogate {
         String line = readLine();
         try {
             Double x = Double.parseDouble(line);
-            if (!coordinatesValidator.isValidX(x)) {
+            if (coordinatesValidator.notValidX(x)) {
                 throw new WrongInputException();
             }
             return x;
@@ -67,7 +64,7 @@ public class InterrogatorFile implements Interrogate {
         String line = readLine();
         try {
             Double y = Double.parseDouble(line);
-            if (!coordinatesValidator.isValidY(y)) {
+            if (coordinatesValidator.notValidY(y)) {
                 throw new WrongInputException();
             }
             return y;
@@ -87,7 +84,7 @@ public class InterrogatorFile implements Interrogate {
         String line = readLine();
         try {
             long x = Long.parseLong(line);
-            if (!annualTurnoverValidator.isValid(x)) {
+            if (annualTurnoverValidator.notValid(x)) {
                 throw new WrongInputException();
             }
             return x;
@@ -99,7 +96,7 @@ public class InterrogatorFile implements Interrogate {
     @Override
     public String askFullName() throws IOException, WrongInputException {
         String line = readLine();
-        if (!fullNameValidator.isValid(line)) {
+        if (fullNameValidator.notValid(line)) {
             throw new WrongInputException();
         }
         return line;
@@ -110,7 +107,7 @@ public class InterrogatorFile implements Interrogate {
         String line = readLine();
         try {
             long x = Long.parseLong(line);
-            if (!employeesCountValidator.isValid(x)) {
+            if (employeesCountValidator.notValid(x)) {
                 throw new WrongInputException();
             }
             return x;

@@ -18,11 +18,11 @@ public class RemoveByIDCommand extends Command {
     }
 
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) throws InvalidArgumentCountException, WrongInputException {
         if (args.length != 1) {
             throw new InvalidArgumentCountException();
         }
-        Long id = null;
+        Long id;
         try {
             id = Long.parseLong(args[0]);
         } catch (NumberFormatException e) {

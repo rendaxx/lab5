@@ -1,20 +1,19 @@
-package com.rendaxx;
+package com.rendaxx.utilities;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import com.rendaxx.IO.CollectionStreamer;
 import com.rendaxx.collection_object.Organization;
 import com.rendaxx.exceptions.NoFileException;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
 
@@ -29,7 +28,9 @@ public class CsvOrganizationStreamer implements CollectionStreamer<LinkedHashSet
         return singleton;
     }
 
-    void setPathToFile(Path p) {
+    private CsvOrganizationStreamer() {}
+
+    public void setPathToFile(Path p) {
         this.pathToFile = p;
     }
 

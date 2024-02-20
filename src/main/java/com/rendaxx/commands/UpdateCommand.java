@@ -21,7 +21,7 @@ public class UpdateCommand extends Command{
         if (args.length != 1) {
             throw new InvalidArgumentCountException();
         }
-        Long id = null;
+        Long id;
         try {
             id = Long.parseLong(args[0]);
         } catch (NumberFormatException e) {

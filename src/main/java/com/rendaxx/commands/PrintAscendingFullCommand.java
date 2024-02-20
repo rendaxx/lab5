@@ -18,7 +18,7 @@ public class PrintAscendingFullCommand extends Command {
     }
 
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) {
         collectionServer.printsAscending();
     }
 }

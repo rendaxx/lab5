@@ -2,7 +2,7 @@ package com.rendaxx;
 
 import com.rendaxx.exceptions.NoFileException;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.interrogators.Interrogate;
+import com.rendaxx.IO.interrogators.Interrogate;
 
 import java.io.IOException;
 

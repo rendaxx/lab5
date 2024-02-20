@@ -18,7 +18,7 @@ public class SaveCommand extends Command {
         this.collectionServer = collectionServer;
     }
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) {
         try {
             collectionServer.save();
         } catch (NoFileException e) {

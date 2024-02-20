@@ -1,9 +1,12 @@
-package com.rendaxx;
+package com.rendaxx.IO;
+
+import lombok.Getter;
 
 import java.util.Arrays;
 
+@Getter
 public class CommandInput {
-    private String name;
+    private final String name;
     private String[] args;
 
     public CommandInput(String line) {
@@ -14,11 +17,4 @@ public class CommandInput {
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String[] getArgs() {
-        return args;
-    }
 }

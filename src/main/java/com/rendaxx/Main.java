@@ -1,19 +1,23 @@
 package com.rendaxx;
 
+import com.rendaxx.IO.InputHandler;
 import com.rendaxx.exceptions.BadScriptException;
 import com.rendaxx.exceptions.NoFileException;
+import com.rendaxx.utilities.ConsoleMode;
+import com.rendaxx.utilities.CsvOrganizationStreamer;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
         OrganizationManager organizationManager = OrganizationManager.getInstance();
-        CsvOrganizationStreamer csvOrganizationStreamer = new CsvOrganizationStreamer();
+        CsvOrganizationStreamer csvOrganizationStreamer = CsvOrganizationStreamer.getInstance();
         organizationManager.setCollectionStreamer(csvOrganizationStreamer);
-        Path path = Path.of(args[0]);
-        csvOrganizationStreamer.setPathToFile(path);
+        Path path;
+        if (args.length > 1) {
+            path = Path.of(args[0]);
+            csvOrganizationStreamer.setPathToFile(path);
+        }
         try {
             organizationManager.load();
         } catch (NoFileException e) {

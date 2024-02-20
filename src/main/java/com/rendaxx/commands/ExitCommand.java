@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) {
         System.exit(0);
     }
 }

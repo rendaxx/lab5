@@ -2,7 +2,6 @@ package com.rendaxx.commands;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
 public class HelpCommand extends Command {
 
@@ -10,7 +9,7 @@ public class HelpCommand extends Command {
     private static final String ARGS = "";
     private static final String DESC = "prints this list";
 
-    private LinkedHashMap<String, Command> commandByName;
+    private final LinkedHashMap<String, Command> commandByName;
 
     public HelpCommand(LinkedHashMap<String, Command> linkedHashMap) {
         super(NAME, ARGS, DESC);
@@ -18,7 +17,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void run(String[] args) throws IOException {
+    public void run(String[] args) {
         commandByName.values().forEach(System.out::println);
     }
 }

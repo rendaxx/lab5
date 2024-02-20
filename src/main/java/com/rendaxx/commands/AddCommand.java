@@ -10,7 +10,7 @@ public class AddCommand extends Command {
     private static final String ARGS = "{element}";
     private static final String DESC = "adds element in collection";
 
-    CollectionServer collectionServer;
+    final CollectionServer collectionServer;
     public AddCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;

@@ -17,7 +17,7 @@ public class ShowCommand extends Command {
         this.collectionServer = collectionServer;
     }
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) {
         collectionServer.collectionShow();
     }
 }

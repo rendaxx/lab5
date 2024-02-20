@@ -10,7 +10,7 @@ public class AddIfMinCommand extends Command {
     private static final String ARGS = "{element}";
     private static final String DESC = "adds {element} in collection if its value is lower than collection's minimum";
 
-    CollectionServer collectionServer;
+    final CollectionServer collectionServer;
     public AddIfMinCommand(CollectionServer collectionServer) {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
