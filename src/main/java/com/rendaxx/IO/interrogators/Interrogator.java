@@ -1,20 +1,20 @@
 package com.rendaxx.IO.interrogators;
 
-import com.rendaxx.collection_object.Address;
-import com.rendaxx.collection_object.Coordinates;
-import com.rendaxx.collection_object.OrganizationType;
+import com.rendaxx.collectionobject.Address;
+import com.rendaxx.collectionobject.Coordinates;
+import com.rendaxx.collectionobject.OrganizationType;
 import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
 /**
  * Interface for asking user input.
  */
-public interface Interrogate {
+public interface Interrogator {
     String askName() throws IOException, WrongInputException;
     Coordinates askCoordinates() throws IOException, WrongInputException;
-    long askAnnualTurnover() throws IOException, WrongInputException;
+    Long askAnnualTurnover() throws IOException, WrongInputException;
     String askFullName() throws IOException, WrongInputException;
-    long askEmployeesCount() throws IOException, WrongInputException;
+    Long askEmployeesCount() throws IOException, WrongInputException;
     OrganizationType askType() throws IOException, WrongInputException;
     Address askPostalAddress() throws IOException, WrongInputException;
 }

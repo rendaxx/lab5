@@ -1,18 +1,18 @@
 package com.rendaxx.IO.interrogators;
 
 import com.rendaxx.utilities.LineCounter;
-import com.rendaxx.collection_object.Address;
-import com.rendaxx.collection_object.Coordinates;
-import com.rendaxx.collection_object.OrganizationType;
+import com.rendaxx.collectionobject.Address;
+import com.rendaxx.collectionobject.Coordinates;
+import com.rendaxx.collectionobject.OrganizationType;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.field_validators.*;
+import com.rendaxx.fieldvalidators.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 /**
  * Class for asking user input from command line.
  */
-public class InterrogatorCLI implements Interrogate {
+public class InterrogatorCLI implements Interrogator {
     final BufferedReader in;
     final LineCounter linesReadCount;
     public InterrogatorCLI(BufferedReader br, LineCounter lrc) {
@@ -26,8 +26,7 @@ public class InterrogatorCLI implements Interrogate {
      */
     private String readLine() throws IOException {
         String line = in.readLine();
-        if (line == null) throw new IOException();
-        linesReadCount.increment();
+        if (line != null) linesReadCount.increment();
         return line;
     }
 
@@ -36,17 +35,15 @@ public class InterrogatorCLI implements Interrogate {
      * @return string input.
      */
     private String askString() throws IOException {
-        while (true) {
-            String line = readLine();
-            try {
-                if (nameValidator.notValid(line)) {
-                    throw new WrongInputException();
-                }
-                return line;
-            } catch (WrongInputException e) {
+        String line;
+        while ((line = readLine()) != null) {
+            if (nameValidator.notValid(line)) {
                 System.err.println("This field can't be empty. Try again.");
+            } else {
+                break;
             }
         }
+        return line;
     }
     /**
      * Asks user for organization name.
@@ -55,47 +52,51 @@ public class InterrogatorCLI implements Interrogate {
     @Override
     public String askName() throws IOException {
         System.out.println("Enter organization name:");
-        return askString();
+        String name = askString();
+        if (name == null) throw new IOException();
+        return name;
     }
     /**
      * Asks user for X coordinate.
      * @return X coordinate.
      */
     private Double askX() throws IOException {
-        while (true) {
-            String line = readLine();
+        String line;
+        Double x = null;
+        while ((line = readLine()) != null) {
             try {
-                Double x = Double.parseDouble(line);
+                x = Double.parseDouble(line);
                 if (coordinatesValidator.notValidX(x)) {
-                    throw new WrongInputException();
+                    System.err.println("This number is wrong. Try again.");
+                } else {
+                    break;
                 }
-                return x;
             } catch (NumberFormatException e) {
-                System.err.println("Input sequence is not a number. Try again.");
-            } catch (WrongInputException e) {
                 System.err.println("This number is wrong. Try again.");
             }
         }
+        return x;
     }
     /**
      * Asks user for Y coordinate.
      * @return Y coordinate.
      */
     private Double askY() throws IOException {
-        while (true) {
-            String line = readLine();
+        String line;
+        Double y = null;
+        while ((line = readLine()) != null) {
             try {
-                Double y = Double.parseDouble(line);
+                y = Double.parseDouble(line);
                 if (coordinatesValidator.notValidY(y)) {
-                    throw new WrongInputException();
+                    System.err.println("This number is wrong. Try again.");
+                } else {
+                    break;
                 }
-                return y;
             } catch (NumberFormatException e) {
-                System.err.println("Input sequence is not a number. Try again.");
-            } catch (WrongInputException e) {
                 System.err.println("This number is wrong. Try again.");
             }
         }
+        return y;
     }
 
     /**
@@ -112,25 +113,27 @@ public class InterrogatorCLI implements Interrogate {
     }
     /**
      * Asks user for annual turnover.
+     *
      * @return annual turnover.
      */
     @Override
-    public long askAnnualTurnover() throws IOException {
+    public Long askAnnualTurnover() throws IOException {
         System.out.println("Enter annual turnover: ");
-        while (true) {
-            String line = readLine();
+        String line;
+        Long x = null;
+        while ((line = readLine()) != null) {
             try {
-                long x = Long.parseLong(line);
+                x = Long.parseLong(line);
                 if (annualTurnoverValidator.notValid(x)) {
-                    throw new WrongInputException();
+                    System.err.println("This field can't be lower than 0 or null. Try again.");
+                } else {
+                    break;
                 }
-                return x;
             } catch (NumberFormatException e) {
-                System.err.println("Input sequence is not a number. Try again.");
-            } catch (WrongInputException e) {
-                System.err.println("This field can't be lower than 0. Try again.");
+                System.err.println("This number is wrong. Try again.");
             }
         }
+        return x;
     }
     /**
      * Asks user for full name.
@@ -139,39 +142,39 @@ public class InterrogatorCLI implements Interrogate {
     @Override
     public String askFullName() throws IOException {
         System.out.println("Enter the full name: ");
-        while (true) {
-            String line = readLine();
-            try {
-                if (fullNameValidator.notValid(line)) {
-                    throw new WrongInputException();
-                }
-                return line;
-            } catch (WrongInputException e) {
+        String line;
+        while ((line = readLine()) != null) {
+            if (fullNameValidator.notValid(line)) {
                 System.err.println("Name can't be longer than 1311 symbols. Try again.");
+            } else {
+                break;
             }
         }
+        return line;
     }
     /**
      * Asks user for employees count.
+     *
      * @return employees count.
      */
     @Override
-    public long askEmployeesCount() throws IOException {
+    public Long askEmployeesCount() throws IOException {
         System.out.println("Enter employees count:");
-        while (true) {
-            String line = readLine();
+        String line;
+        Long x = null;
+        while ((line = readLine()) != null) {
             try {
-                long x = Long.parseLong(line);
+                x = Long.parseLong(line);
                 if (employeesCountValidator.notValid(x)) {
-                    throw new WrongInputException();
+                    System.err.println("This field can't be lower than 0 or null. Try again.");
+                } else {
+                    break;
                 }
-                return x;
             } catch (NumberFormatException e) {
-                System.err.println("Input sequence is not a number. Try again.");
-            } catch (WrongInputException e) {
-                System.err.println("This field can't be lower than 0. Try again.");
+                System.err.println("This number is wrong. Try again.");
             }
         }
+        return x;
     }
     /**
      * Asks user for organization type.
@@ -183,19 +186,22 @@ public class InterrogatorCLI implements Interrogate {
         System.out.println("1: PUBLIC");
         System.out.println("2: GOVERNMENT");
         System.out.println("3: OPEN_JOINT_STOCK_COMPANY");
-        while (true) {
-            String line = readLine();
-            try {
-                return switch (line) {
-                    case ("1") -> OrganizationType.PUBLIC;
-                    case ("2") -> OrganizationType.GOVERNMENT;
-                    case ("3") -> OrganizationType.OPEN_JOINT_STOCK_COMPANY;
-                    default -> throw new WrongInputException();
-                };
-            } catch (WrongInputException e) {
-                System.err.println("Choose number from 1 to 3.");
+        String line;
+        while ((line = readLine()) != null) {
+            switch (line) {
+                case ("1") -> {
+                    return OrganizationType.PUBLIC;
+                }
+                case ("2") -> {
+                    return OrganizationType.GOVERNMENT;
+                }
+                case ("3") -> {
+                    return OrganizationType.OPEN_JOINT_STOCK_COMPANY;
+                }
+                default -> System.err.println("Choose number from 1 to 3.");
             }
         }
+        return null;
     }
     /**
      * Asks user for postal address.

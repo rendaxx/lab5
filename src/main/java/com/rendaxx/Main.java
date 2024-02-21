@@ -14,7 +14,7 @@ public class Main {
         CsvOrganizationStreamer csvOrganizationStreamer = CsvOrganizationStreamer.getInstance();
         organizationManager.setCollectionStreamer(csvOrganizationStreamer);
         Path path;
-        if (args.length > 1) {
+        if (args.length > 0) {
             path = Path.of(args[0]);
             csvOrganizationStreamer.setPathToFile(path);
         }

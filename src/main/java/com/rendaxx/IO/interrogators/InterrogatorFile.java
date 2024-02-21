@@ -1,23 +1,24 @@
 package com.rendaxx.IO.interrogators;
 
 import com.rendaxx.utilities.LineCounter;
-import com.rendaxx.collection_object.Address;
-import com.rendaxx.collection_object.Coordinates;
-import com.rendaxx.collection_object.OrganizationType;
+import com.rendaxx.collectionobject.Address;
+import com.rendaxx.collectionobject.Coordinates;
+import com.rendaxx.collectionobject.OrganizationType;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.field_validators.*;
+import com.rendaxx.fieldvalidators.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.InputMismatchException;
 /**
  * Class for asking user input from file.
  */
-public class InterrogatorFile implements Interrogate {
-    final BufferedReader in;
+public class InterrogatorFile implements Interrogator {
+    final LineNumberReader in;
     final LineCounter linesReadCount;
     public InterrogatorFile(BufferedReader br, LineCounter lrc) {
-        in = br;
+        in = new LineNumberReader(br);
         linesReadCount = lrc;
     }
     /**
@@ -37,14 +38,10 @@ public class InterrogatorFile implements Interrogate {
      */
     private String askString() throws IOException, WrongInputException {
         String line = readLine();
-        try {
-            if (nameValidator.notValid(line)) {
-                throw new WrongInputException();
-            }
-            return line;
-        } catch (WrongInputException e) {
+        if (nameValidator.notValid(line)) {
             throw new WrongInputException();
         }
+        return line;
     }
 
     /**
@@ -65,15 +62,17 @@ public class InterrogatorFile implements Interrogate {
      */
     private Double askX() throws IOException, WrongInputException {
         String line = readLine();
+        Double x = null;
         try {
-            Double x = Double.parseDouble(line);
-            if (coordinatesValidator.notValidX(x)) {
-                throw new WrongInputException();
-            }
-            return x;
+            x = Double.parseDouble(line);
         } catch (NumberFormatException e) {
+            throw new WrongInputException("Wrong number at line " + in.getLineNumber());
+        }
+
+        if (coordinatesValidator.notValidX(x)) {
             throw new WrongInputException();
         }
+        return x;
     }
     /**
      * Reads Y coordinate and checks if it's valid.
@@ -81,15 +80,16 @@ public class InterrogatorFile implements Interrogate {
      */
     private Double askY() throws IOException, WrongInputException {
         String line = readLine();
+        Double y = null;
         try {
-            Double y = Double.parseDouble(line);
-            if (coordinatesValidator.notValidY(y)) {
-                throw new WrongInputException();
-            }
-            return y;
+            y = Double.parseDouble(line);
         } catch (NumberFormatException e) {
+            throw new WrongInputException("Wrong number at line " + in.getLineNumber());
+        }
+        if (coordinatesValidator.notValidY(y)) {
             throw new WrongInputException();
         }
+        return y;
     }
 
     /**
@@ -104,20 +104,22 @@ public class InterrogatorFile implements Interrogate {
     }
     /**
      * Reads annual turnover and checks if it's valid.
+     *
      * @return annual turnover
      */
     @Override
-    public long askAnnualTurnover() throws WrongInputException, IOException {
+    public Long askAnnualTurnover() throws WrongInputException, IOException {
         String line = readLine();
+        Long x = null;
         try {
-            long x = Long.parseLong(line);
-            if (annualTurnoverValidator.notValid(x)) {
-                throw new WrongInputException();
-            }
-            return x;
-        } catch (InputMismatchException e) {
+            x = Long.parseLong(line);
+        } catch (NumberFormatException e) {
+            throw new WrongInputException("Wrong number at line " + in.getLineNumber());
+        }
+        if (annualTurnoverValidator.notValid(x)) {
             throw new WrongInputException();
         }
+        return x;
     }
     /**
      * Reads full name and checks if it's valid.
@@ -133,20 +135,22 @@ public class InterrogatorFile implements Interrogate {
     }
     /**
      * Reads employees count and checks if it's valid.
+     *
      * @return employees count
      */
     @Override
-    public long askEmployeesCount() throws IOException, WrongInputException {
+    public Long askEmployeesCount() throws IOException, WrongInputException {
         String line = readLine();
+        Long x = null;
         try {
-            long x = Long.parseLong(line);
-            if (employeesCountValidator.notValid(x)) {
-                throw new WrongInputException();
-            }
-            return x;
-        } catch (InputMismatchException e) {
+            x = Long.parseLong(line);
+        } catch (NumberFormatException e) {
+            throw new WrongInputException("Wrong number at line " + in.getLineNumber());
+        }
+        if (employeesCountValidator.notValid(x)) {
             throw new WrongInputException();
         }
+        return x;
     }
     /**
      * Reads organization type and checks if it's valid.

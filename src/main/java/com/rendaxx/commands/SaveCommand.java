@@ -2,6 +2,8 @@ package com.rendaxx.commands;
 
 import com.rendaxx.CollectionServer;
 import com.rendaxx.exceptions.NoFileException;
+import com.rendaxx.exceptions.WrongInputException;
+
 /**
  * Class for save command. This command saves collection in csv format.
  * @see CollectionServer
@@ -21,12 +23,14 @@ public class SaveCommand extends Command {
      * @param args arguments for command
      */
     @Override
-    public void run(String[] args) {
+    public void run(String[] args) throws WrongInputException {
+        if (args != null) {
+            throw new WrongInputException("Wrong amount of args");
+        }
         try {
             collectionServer.save();
         } catch (NoFileException e) {
             System.err.println("You can't use this command.");
         }
-
     }
 }

@@ -26,7 +26,10 @@ public class RemoveLowerCommand extends Command {
      * @throws WrongInputException if input is incorrect
      */
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) throws IOException, WrongInputException {
+        if (args != null) {
+            throw new WrongInputException("Wrong amount of args");
+        }
         collectionServer.removeLower();
     }
 }

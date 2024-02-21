@@ -1,4 +1,4 @@
-package com.rendaxx.field_validators;
+package com.rendaxx.fieldvalidators;
 /**
  * Validator for fullName field.
  */

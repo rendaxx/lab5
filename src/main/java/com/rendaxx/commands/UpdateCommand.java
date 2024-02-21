@@ -26,9 +26,9 @@ public class UpdateCommand extends Command{
      * @throws WrongInputException if input is incorrect
      */
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) throws IOException, WrongInputException {
         if (args.length != 1) {
-            throw new InvalidArgumentCountException();
+            throw new WrongInputException("Wrong amount of args");
         }
         long id;
         try {

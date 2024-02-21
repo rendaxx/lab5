@@ -26,7 +26,7 @@ public class FilterStartsCommand extends Command {
     @Override
     public void run(String[] args) throws InvalidArgumentCountException, WrongInputException {
         if (args.length != 1) {
-            throw new InvalidArgumentCountException();
+            throw new WrongInputException("Wrong amount of args");
         }
         String name = args[0];
         collectionServer.filterStartsWithName(name);

@@ -1,8 +1,8 @@
 package com.rendaxx.utilities;
 
-import com.rendaxx.collection_object.Organization;
+import com.rendaxx.collectionobject.Organization;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.IO.interrogators.Interrogate;
+import com.rendaxx.IO.interrogators.Interrogator;
 
 import java.io.IOException;
 import java.util.Date;
@@ -15,9 +15,9 @@ public class OrganizationBuilder implements OrganizationBuilderInterface {
     public OrganizationBuilder(Organization org) {
         this.org = org;
     }
-    Interrogate interrogator;
+    Interrogator interrogator;
 
-    public OrganizationBuilder(Interrogate i) {
+    public OrganizationBuilder(Interrogator i) {
         this.interrogator = i;
         this.org = new Organization();
     }
@@ -30,13 +30,17 @@ public class OrganizationBuilder implements OrganizationBuilderInterface {
 
     @Override
     public OrganizationBuilderInterface setName() throws IOException, WrongInputException {
-        org.setName(interrogator.askName());
+        var x = interrogator.askName();
+        if (x == null) throw new WrongInputException();
+        org.setName(x);
         return this;
     }
 
     @Override
     public OrganizationBuilderInterface setCoordinates() throws IOException, WrongInputException {
-        org.setCoordinates(interrogator.askCoordinates());
+        var x = interrogator.askCoordinates();
+        if (x == null) throw new WrongInputException();
+        org.setCoordinates(x);
         return this;
     }
 
@@ -48,31 +52,41 @@ public class OrganizationBuilder implements OrganizationBuilderInterface {
 
     @Override
     public OrganizationBuilderInterface setAnnualTurnover() throws IOException, WrongInputException {
-        org.setAnnualTurnover(interrogator.askAnnualTurnover());
+        var x = interrogator.askAnnualTurnover();
+        if (x == null) throw new WrongInputException();
+        org.setAnnualTurnover(x);
         return this;
     }
 
     @Override
     public OrganizationBuilderInterface setFullName() throws IOException, WrongInputException {
-        org.setFullName(interrogator.askFullName());
+        var x = interrogator.askFullName();
+        if (x == null) throw new WrongInputException();
+        org.setFullName(x);
         return this;
     }
 
     @Override
     public OrganizationBuilderInterface setEmployeesCount() throws IOException, WrongInputException {
-        org.setEmployeesCount(interrogator.askEmployeesCount());
+        var x = interrogator.askEmployeesCount();
+        if (x == null) throw new WrongInputException();
+        org.setEmployeesCount(x);
         return this;
     }
 
     @Override
     public OrganizationBuilderInterface setType() throws IOException, WrongInputException {
-        org.setType(interrogator.askType());
+        var x = interrogator.askType();
+        if (x == null) throw new WrongInputException();
+        org.setType(x);
         return this;
     }
 
     @Override
     public OrganizationBuilderInterface setPostalAddress() throws IOException, WrongInputException {
-        org.setPostalAddress(interrogator.askPostalAddress());
+        var x = interrogator.askPostalAddress();
+        if (x == null) throw new WrongInputException();
+        org.setPostalAddress(x);
         return this;
     }
 

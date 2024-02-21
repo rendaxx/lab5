@@ -1,6 +1,6 @@
 package com.rendaxx.utilities;
 
-import com.rendaxx.collection_object.Organization;
+import com.rendaxx.collectionobject.Organization;
 import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;

@@ -14,6 +14,7 @@ public class ScriptValidator {
         paths.add(path);
         try (var stream = Files.lines(path)){
             var scripts = stream.filter(s -> s.startsWith("execute_script")).map(s -> s.split("\\s")).toList();
+            if (scripts.isEmpty()) return true;
             if (!scripts.stream().allMatch(o -> o.length != 2)) return false;
             var scripts_paths = scripts.stream().map(o -> Path.of(o[1]).toAbsolutePath()).toList();
             if (scripts_paths.stream().anyMatch(paths::contains)) return false;

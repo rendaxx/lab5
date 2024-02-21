@@ -1,10 +1,10 @@
 package com.rendaxx;
 
 import com.rendaxx.IO.CollectionStreamer;
-import com.rendaxx.collection_object.Organization;
+import com.rendaxx.collectionobject.Organization;
 import com.rendaxx.exceptions.NoFileException;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.IO.interrogators.Interrogate;
+import com.rendaxx.IO.interrogators.Interrogator;
 import com.rendaxx.utilities.OrganizationBuilder;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.util.Objects;
 public class OrganizationManager implements CollectionServer {
     private static OrganizationManager singleton;
     private LinkedHashSet<Organization> organizations;
-    private Interrogate interrogator;
+    private Interrogator interrogator;
     private final LocalDateTime lastInitTime;
     private LocalDateTime lastSaveTime;
 
@@ -35,7 +35,7 @@ public class OrganizationManager implements CollectionServer {
     }
 
     @Override
-    public void setInterrogator(Interrogate interrogator) {
+    public void setInterrogator(Interrogator interrogator) {
         this.interrogator = interrogator;
     }
 
@@ -60,18 +60,18 @@ public class OrganizationManager implements CollectionServer {
      * @throws WrongInputException if input has a problem.
      */
     @Override
-    public void addElement() throws IOException, WrongInputException {
+    public void addElement() throws WrongInputException, IOException {
         Organization org = new OrganizationBuilder(interrogator)
-                .setId()
-                .setName()
-                .setCoordinates()
-                .setCreationDate()
-                .setAnnualTurnover()
-                .setFullName()
-                .setEmployeesCount()
-                .setType()
-                .setPostalAddress()
-                .build();
+                    .setId()
+                    .setName()
+                    .setCoordinates()
+                    .setCreationDate()
+                    .setAnnualTurnover()
+                    .setFullName()
+                    .setEmployeesCount()
+                    .setType()
+                    .setPostalAddress()
+                    .build();
         organizations.add(org);
     }
     /**

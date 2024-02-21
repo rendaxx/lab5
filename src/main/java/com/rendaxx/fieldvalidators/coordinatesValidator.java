@@ -1,7 +1,7 @@
-package com.rendaxx.field_validators;
+package com.rendaxx.fieldvalidators;
 /**
  * Validator for coordinates field.
- * @see com.rendaxx.collection_object.Coordinates
+ * @see com.rendaxx.collectionobject.Coordinates
  */
 public class coordinatesValidator {
     public static boolean notValidX(Double x) {

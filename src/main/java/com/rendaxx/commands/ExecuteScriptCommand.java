@@ -28,9 +28,9 @@ public class ExecuteScriptCommand extends Command {
      * @throws WrongInputException if there is an error in input
      */
     @Override
-    public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
+    public void run(String[] args) throws IOException, WrongInputException {
         if (args.length != 1) {
-            throw new InvalidArgumentCountException();
+            throw new WrongInputException("Wrong amount of args");
         }
         Path path = Path.of(args[0]);
         try {
@@ -44,9 +44,7 @@ public class ExecuteScriptCommand extends Command {
 
         try (InputStream fileInputStream = new FileInputStream(path.toFile())) {
             new InputHandler().runInputProcessor(fileInputStream, ConsoleMode.FileMode);
-        } catch (FileNotFoundException e) {
-            throw new WrongInputException();
-        } catch (BadScriptException e) {
+        } catch (FileNotFoundException | BadScriptException e) {
             throw new WrongInputException(e.getMessage());
         }
     }

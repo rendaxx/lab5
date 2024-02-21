@@ -1,6 +1,8 @@
 package com.rendaxx.commands;
 
 import com.rendaxx.CollectionServer;
+import com.rendaxx.exceptions.WrongInputException;
+
 /**
  * Class for info command. This command prints collection's info.
  * @see CollectionServer
@@ -20,7 +22,10 @@ public class InfoCommand extends Command {
      * @param args arguments for command
      */
     @Override
-    public void run(String[] args) {
+    public void run(String[] args) throws WrongInputException {
+        if (args != null) {
+            throw new WrongInputException("Wrong amount of args");
+        }
         collectionServer.collectionInfo();
     }
 }

@@ -31,21 +31,24 @@ public class CommandManager {
         commandByName.put("sum_of_annual_turnover", new SumOfAnnualCommand(server));
         commandByName.put("filter_starts_with_name", new FilterStartsCommand(server));
         commandByName.put("print_field_ascending_full_name", new PrintAscendingFullCommand(server));
-
     }
 
     /**
      * Executes command.
      * @param input command input.
-     * @throws UnknownCommandException if command does not exist.
      * @throws IOException if I/O error occurs.
-     * @throws WrongInputException if input is wrong.
+     * @return is command ran successfully
      */
-    public void execute(CommandInput input) throws UnknownCommandException, IOException, WrongInputException {
+    public void execute(CommandInput input) throws IOException {
         Command command = commandByName.get(input.getName());
         if (command == null) {
-            throw new UnknownCommandException(input.getName());
+            System.err.println("Command does not exist");
+            return;
         }
-        command.run(input.getArgs());
+        try {
+            command.run(input.getArgs());
+        } catch (WrongInputException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

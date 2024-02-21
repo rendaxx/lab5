@@ -26,6 +26,9 @@ public class AddIfMinCommand extends Command {
      */
     @Override
     public void run(String[] args) throws IOException, WrongInputException {
+        if (args != null) {
+            throw new WrongInputException("Wrong amount of args");
+        }
         collectionServer.addIfMin();
     }
 }

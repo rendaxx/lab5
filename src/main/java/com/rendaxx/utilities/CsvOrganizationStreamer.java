@@ -6,7 +6,7 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.rendaxx.IO.CollectionStreamer;
-import com.rendaxx.collection_object.Organization;
+import com.rendaxx.collectionobject.Organization;
 import com.rendaxx.exceptions.NoFileException;
 
 import java.io.IOException;

@@ -2,7 +2,7 @@ package com.rendaxx;
 
 import com.rendaxx.exceptions.NoFileException;
 import com.rendaxx.exceptions.WrongInputException;
-import com.rendaxx.IO.interrogators.Interrogate;
+import com.rendaxx.IO.interrogators.Interrogator;
 
 import java.io.IOException;
 /**
@@ -23,6 +23,6 @@ public interface CollectionServer {
     void printsAscending();
     void save() throws NoFileException;
     void load() throws NoFileException;
-    void setInterrogator(Interrogate i);
+    void setInterrogator(Interrogator i);
     void deleteInvalidElements();
 }

@@ -27,6 +27,9 @@ public class AddCommand extends Command {
      */
     @Override
     public void run(String[] args) throws IOException, WrongInputException {
+        if (args != null) {
+            throw new WrongInputException("Wrong amount of args");
+        }
         collectionServer.addElement();
     }
 }

@@ -1,4 +1,4 @@
-package com.rendaxx.collection_object;
+package com.rendaxx.collectionobject;
 
 public enum OrganizationType {
     PUBLIC,
