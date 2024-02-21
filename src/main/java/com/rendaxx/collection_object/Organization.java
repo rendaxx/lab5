@@ -10,6 +10,9 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * This class represents the organization object
+ */
 @Setter
 @Getter
 @AllArgsConstructor
@@ -36,6 +39,10 @@ public class Organization implements Comparable<Organization> {
         creationDate = new Date();
     }
 
+    /**
+     * This method checks if all fields of this class is valid
+     * @return object validity
+     */
     public boolean validate() {
         if (id == null || id <= 0) return false;
         if (name == null || name.isEmpty()) return false;
@@ -45,6 +52,7 @@ public class Organization implements Comparable<Organization> {
         if (fullName.length() > 1311) return false;
         if (employeesCount < 0) return false;
         if (type == null) return false;
+        //noinspection RedundantIfStatement
         if (postalAddress == null || !postalAddress.validate()) return false;
         return true;
     }

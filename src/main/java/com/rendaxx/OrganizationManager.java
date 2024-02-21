@@ -11,12 +11,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Objects;
-
+/**
+ * Class for managing collection of organizations.
+ */
 public class OrganizationManager implements CollectionServer {
     private static OrganizationManager singleton;
     private LinkedHashSet<Organization> organizations;
     private Interrogate interrogator;
-    private LocalDateTime lastInitTime;
+    private final LocalDateTime lastInitTime;
     private LocalDateTime lastSaveTime;
 
     private CollectionStreamer<LinkedHashSet<Organization>> collectionStreamer;
@@ -37,6 +39,9 @@ public class OrganizationManager implements CollectionServer {
         this.interrogator = interrogator;
     }
 
+    /**
+     * Deletes invalid elements from collection.
+     */
     @Override
     public void deleteInvalidElements() {
         organizations.stream().filter(o -> !o.validate()).forEach(organizations::remove);
@@ -49,7 +54,11 @@ public class OrganizationManager implements CollectionServer {
     public void setCollectionStreamer(CollectionStreamer<LinkedHashSet<Organization>> collectionStreamer) {
         this.collectionStreamer = collectionStreamer;
     }
-
+    /**
+     * Adds organization to collection.
+     * @throws IOException if input has a problem.
+     * @throws WrongInputException if input has a problem.
+     */
     @Override
     public void addElement() throws IOException, WrongInputException {
         Organization org = new OrganizationBuilder(interrogator)
@@ -65,7 +74,9 @@ public class OrganizationManager implements CollectionServer {
                 .build();
         organizations.add(org);
     }
-
+    /**
+     * Shows information about collection.
+     */
     @Override
     public void collectionInfo() {
         System.out.println("type: " + organizations.getClass().getSimpleName());
@@ -73,12 +84,20 @@ public class OrganizationManager implements CollectionServer {
         System.out.println("last save time: " + lastSaveTime);
         System.out.println("number of elements: " + organizations.size());
     }
-
+    /**
+     * Shows collection.
+     */
     @Override
     public void collectionShow() {
         organizations.forEach(System.out::println);
     }
 
+    /**
+     * Updates organization by id.
+     * @param id id of organization.
+     * @throws WrongInputException if input has a problem.
+     * @throws IOException if input has a problem.
+     */
     @Override
     public void updateElement(Long id) throws WrongInputException, IOException {
         var answer = organizations.stream().filter(organization ->
@@ -97,6 +116,11 @@ public class OrganizationManager implements CollectionServer {
                 .setPostalAddress();
     }
 
+    /**
+     * Removes organization by id.
+     * @param id id of organization.
+     * @throws WrongInputException if input has a problem.
+     */
     @Override
     public void removeElementById(Long id) throws WrongInputException {
         var answer = organizations.stream().filter(organization ->
@@ -106,12 +130,18 @@ public class OrganizationManager implements CollectionServer {
         }
         organizations.remove(answer.get());
     }
-
+    /**
+     * Clears collection.
+     */
     @Override
     public void clearCollection() {
         organizations.clear();
     }
-
+    /**
+     * Adds organization to collection if it is less than minimal.
+     * @throws IOException if input has a problem.
+     * @throws WrongInputException if input has a problem.
+     */
     @Override
     public void addIfMin() throws IOException, WrongInputException {
         Organization org = new OrganizationBuilder(interrogator)
@@ -130,7 +160,11 @@ public class OrganizationManager implements CollectionServer {
             organizations.add(org);
         }
     }
-
+    /**
+     * Removes organizations greater than given.
+     * @throws IOException if input has a problem.
+     * @throws WrongInputException if input has a problem.
+     */
     @Override
     public void removeGreater() throws IOException, WrongInputException {
         Organization org = new OrganizationBuilder(interrogator)
@@ -146,7 +180,11 @@ public class OrganizationManager implements CollectionServer {
                 .build();
         organizations.stream().filter(o -> o.compareTo(org) > 0).forEach(organizations::remove);
     }
-
+    /**
+     * Removes organizations lower than given.
+     * @throws IOException if input has a problem.
+     * @throws WrongInputException if input has a problem.
+     */
     @Override
     public void removeLower() throws IOException, WrongInputException {
         Organization org = new OrganizationBuilder(interrogator)
@@ -162,23 +200,33 @@ public class OrganizationManager implements CollectionServer {
                 .build();
         organizations.stream().filter(o -> o.compareTo(org) < 0).forEach(organizations::remove);
     }
-
+    /**
+     * Shows sum of annual turnover.
+     */
     @Override
     public void sumOfAnnual() {
         Long result = organizations.stream().map(Organization::getAnnualTurnover).reduce(0L, Long::sum);
         System.out.println("Sum of annualTurnover is: " + result);
     }
-
+    /**
+     * Filters organizations by name.
+     * @param name name of organization.
+     */
     @Override
     public void filterStartsWithName(String name) {
         organizations.stream().filter(o -> o.getName().startsWith(name)).forEach(System.out::println);
     }
-
+    /**
+     * Prints organizations in ascending order.
+     */
     @Override
     public void printsAscending() {
         organizations.stream().map(Organization::getFullName).sorted().forEach(System.out::println);
     }
-
+    /**
+     * Saves collection to file.
+     * @throws NoFileException if file is not found.
+     */
     @Override
     public void save() throws NoFileException {
         if (collectionStreamer == null) {
@@ -186,7 +234,10 @@ public class OrganizationManager implements CollectionServer {
         }
         collectionStreamer.saveToFile(organizations);
     }
-
+    /**
+     * Loads collection from file.
+     * @throws NoFileException if file is not found.
+     */
     @Override
     public void load() throws NoFileException {
         if (collectionStreamer == null) {

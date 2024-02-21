@@ -12,9 +12,17 @@ import com.rendaxx.utilities.ConsoleMode;
 import com.rendaxx.utilities.LineCounter;
 
 import java.io.*;
-
+/**
+ * Class for handling input from user or file.
+ */
 public class InputHandler {
     final LineCounter linesReadCount = new LineCounter();
+    /**
+     * Runs input processor.
+     * @param is input stream.
+     * @param cm console mode.
+     * @throws BadScriptException if script has a problem.
+     */
     public void runInputProcessor(InputStream is, ConsoleMode cm) throws BadScriptException {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
         CollectionServer collectionServer = OrganizationManager.getInstance();

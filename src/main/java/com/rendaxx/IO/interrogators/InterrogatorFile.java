@@ -10,16 +10,20 @@ import com.rendaxx.field_validators.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.InputMismatchException;
-
+/**
+ * Class for asking user input from file.
+ */
 public class InterrogatorFile implements Interrogate {
-
-    BufferedReader in;
-    LineCounter linesReadCount;
+    final BufferedReader in;
+    final LineCounter linesReadCount;
     public InterrogatorFile(BufferedReader br, LineCounter lrc) {
         in = br;
         linesReadCount = lrc;
     }
-
+    /**
+     * Reads line from BufferedReader.
+     * @return line from BufferedReader.
+     */
     private String readLine() throws IOException {
         String line = in.readLine();
         if (line == null) throw new IOException();
@@ -27,6 +31,10 @@ public class InterrogatorFile implements Interrogate {
         return line;
     }
 
+    /**
+     * Reads String from BufferedReader and checks if it's valid.
+     * @return string input.
+     */
     private String askString() throws IOException, WrongInputException {
         String line = readLine();
         try {
@@ -38,6 +46,11 @@ public class InterrogatorFile implements Interrogate {
             throw new WrongInputException();
         }
     }
+
+    /**
+     * Reads name and checks if it's valid.
+     * @return name
+     */
     @Override
     public String askName() throws IOException, WrongInputException {
         String line = readLine();
@@ -46,7 +59,10 @@ public class InterrogatorFile implements Interrogate {
         }
         return line;
     }
-
+    /**
+     * Reads X coordinate and checks if it's valid.
+     * @return X coordinate
+     */
     private Double askX() throws IOException, WrongInputException {
         String line = readLine();
         try {
@@ -59,7 +75,10 @@ public class InterrogatorFile implements Interrogate {
             throw new WrongInputException();
         }
     }
-
+    /**
+     * Reads Y coordinate and checks if it's valid.
+     * @return Y coordinate
+     */
     private Double askY() throws IOException, WrongInputException {
         String line = readLine();
         try {
@@ -72,13 +91,21 @@ public class InterrogatorFile implements Interrogate {
             throw new WrongInputException();
         }
     }
+
+    /**
+     * Creates Coordinates object from X and Y coordinates.
+     * @return Coordinates object.
+     */
     @Override
     public Coordinates askCoordinates() throws IOException, WrongInputException {
         Double x = askX();
         Double y = askY();
         return new Coordinates(x, y);
     }
-
+    /**
+     * Reads annual turnover and checks if it's valid.
+     * @return annual turnover
+     */
     @Override
     public long askAnnualTurnover() throws WrongInputException, IOException {
         String line = readLine();
@@ -92,7 +119,10 @@ public class InterrogatorFile implements Interrogate {
             throw new WrongInputException();
         }
     }
-
+    /**
+     * Reads full name and checks if it's valid.
+     * @return full name
+     */
     @Override
     public String askFullName() throws IOException, WrongInputException {
         String line = readLine();
@@ -101,7 +131,10 @@ public class InterrogatorFile implements Interrogate {
         }
         return line;
     }
-
+    /**
+     * Reads employees count and checks if it's valid.
+     * @return employees count
+     */
     @Override
     public long askEmployeesCount() throws IOException, WrongInputException {
         String line = readLine();
@@ -115,7 +148,10 @@ public class InterrogatorFile implements Interrogate {
             throw new WrongInputException();
         }
     }
-
+    /**
+     * Reads organization type and checks if it's valid.
+     * @return organization type
+     */
     @Override
     public OrganizationType askType() throws IOException, WrongInputException {
         String line = readLine();
@@ -126,7 +162,10 @@ public class InterrogatorFile implements Interrogate {
             default -> throw new WrongInputException();
         };
     }
-
+    /**
+     * Reads postal address and checks if it's valid.
+     * @return postal address
+     */
     @Override
     public Address askPostalAddress() throws IOException, WrongInputException {
         String street = askString();

@@ -7,9 +7,11 @@ import com.rendaxx.IO.interrogators.Interrogate;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Random;
-
+/**
+ * Class for building organization object.
+ */
 public class OrganizationBuilder implements OrganizationBuilderInterface {
-    private Organization org;
+    private final Organization org;
     public OrganizationBuilder(Organization org) {
         this.org = org;
     }

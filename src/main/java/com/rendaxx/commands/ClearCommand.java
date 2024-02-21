@@ -1,11 +1,10 @@
 package com.rendaxx.commands;
 
 import com.rendaxx.CollectionServer;
-import com.rendaxx.exceptions.InvalidArgumentCountException;
-import com.rendaxx.exceptions.WrongInputException;
-
-import java.io.IOException;
-
+/**
+ * Class for clear command. This command clears collection managed by CollectionServer.
+ * @see CollectionServer
+ */
 public class ClearCommand extends Command {
     private static final String NAME = "clear";
     private static final String ARGS = "";
@@ -16,7 +15,10 @@ public class ClearCommand extends Command {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
     }
-
+    /**
+     * Clears collection managed by CollectionServer.
+     * @param args arguments for command
+     */
     @Override
     public void run(String[] args) {
         collectionServer.clearCollection();

@@ -3,7 +3,9 @@ package com.rendaxx.IO;
 import lombok.Getter;
 
 import java.util.Arrays;
-
+/**
+ * Class for parsing command input.
+ */
 @Getter
 public class CommandInput {
     private final String name;

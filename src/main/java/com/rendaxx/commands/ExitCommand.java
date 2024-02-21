@@ -1,10 +1,7 @@
 package com.rendaxx.commands;
-
-import com.rendaxx.exceptions.InvalidArgumentCountException;
-import com.rendaxx.exceptions.WrongInputException;
-
-import java.io.IOException;
-
+/**
+ * Class for exit command. This command exits the program.
+ */
 public class ExitCommand extends Command {
     private static final String NAME = "exit";
     private static final String ARGS = "";
@@ -13,7 +10,10 @@ public class ExitCommand extends Command {
     public ExitCommand() {
         super(NAME, ARGS, DESC);
     }
-
+    /**
+     * Exits the program.
+     * @param args arguments for command
+     */
     @Override
     public void run(String[] args) {
         System.exit(0);

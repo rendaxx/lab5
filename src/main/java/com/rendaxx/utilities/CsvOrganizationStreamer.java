@@ -16,7 +16,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashSet;
 import java.util.stream.Collectors;
-
+/**
+ * Class for saving and reading collection of organizations to/from csv file.
+ */
 public class CsvOrganizationStreamer implements CollectionStreamer<LinkedHashSet<Organization>> {
 
     private static CsvOrganizationStreamer singleton;

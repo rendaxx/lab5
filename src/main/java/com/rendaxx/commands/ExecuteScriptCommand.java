@@ -10,6 +10,9 @@ import com.rendaxx.exceptions.WrongInputException;
 import java.io.*;
 import java.nio.file.Path;
 
+/**
+ * Class for execute_script command. This command reads and executes script from file.
+ */
 public class ExecuteScriptCommand extends Command {
     private static final String NAME = "execute_script";
     private static final String ARGS = "file_name";
@@ -17,7 +20,13 @@ public class ExecuteScriptCommand extends Command {
     public ExecuteScriptCommand() {
         super(NAME, ARGS, DESC);
     }
-
+    /**
+     * Method for executing execute_script command.
+     * @param args command arguments
+     * @throws IOException if an I/O error occurs
+     * @throws InvalidArgumentCountException if there is invalid number of arguments
+     * @throws WrongInputException if there is an error in input
+     */
     @Override
     public void run(String[] args) throws IOException, InvalidArgumentCountException, WrongInputException {
         if (args.length != 1) {

@@ -5,7 +5,9 @@ import com.rendaxx.exceptions.WrongInputException;
 import com.rendaxx.IO.interrogators.Interrogate;
 
 import java.io.IOException;
-
+/**
+ * Interface for server.
+ */
 public interface CollectionServer {
     void addElement() throws IOException, WrongInputException;
     void collectionInfo();

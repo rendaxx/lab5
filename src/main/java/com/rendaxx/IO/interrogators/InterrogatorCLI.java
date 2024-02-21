@@ -9,15 +9,21 @@ import com.rendaxx.field_validators.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-
+/**
+ * Class for asking user input from command line.
+ */
 public class InterrogatorCLI implements Interrogate {
-    BufferedReader in;
-    LineCounter linesReadCount;
+    final BufferedReader in;
+    final LineCounter linesReadCount;
     public InterrogatorCLI(BufferedReader br, LineCounter lrc) {
         in = br;
         linesReadCount = lrc;
     }
 
+    /**
+     * Reads line from BufferedReader.
+     * @return line from BufferedReader.
+     */
     private String readLine() throws IOException {
         String line = in.readLine();
         if (line == null) throw new IOException();
@@ -25,6 +31,10 @@ public class InterrogatorCLI implements Interrogate {
         return line;
     }
 
+    /**
+     * Asks user for string input.
+     * @return string input.
+     */
     private String askString() throws IOException {
         while (true) {
             String line = readLine();
@@ -38,12 +48,19 @@ public class InterrogatorCLI implements Interrogate {
             }
         }
     }
+    /**
+     * Asks user for organization name.
+     * @return organization name.
+     */
     @Override
     public String askName() throws IOException {
         System.out.println("Enter organization name:");
         return askString();
     }
-
+    /**
+     * Asks user for X coordinate.
+     * @return X coordinate.
+     */
     private Double askX() throws IOException {
         while (true) {
             String line = readLine();
@@ -60,7 +77,10 @@ public class InterrogatorCLI implements Interrogate {
             }
         }
     }
-
+    /**
+     * Asks user for Y coordinate.
+     * @return Y coordinate.
+     */
     private Double askY() throws IOException {
         while (true) {
             String line = readLine();
@@ -78,7 +98,10 @@ public class InterrogatorCLI implements Interrogate {
         }
     }
 
-
+    /**
+     * Asks user for coordinates.
+     * @return coordinates.
+     */
     @Override
     public Coordinates askCoordinates() throws IOException {
         System.out.println("Enter the X coordinate: ");
@@ -87,7 +110,10 @@ public class InterrogatorCLI implements Interrogate {
         Double y = askY();
         return new Coordinates(x, y);
     }
-
+    /**
+     * Asks user for annual turnover.
+     * @return annual turnover.
+     */
     @Override
     public long askAnnualTurnover() throws IOException {
         System.out.println("Enter annual turnover: ");
@@ -106,7 +132,10 @@ public class InterrogatorCLI implements Interrogate {
             }
         }
     }
-
+    /**
+     * Asks user for full name.
+     * @return full name.
+     */
     @Override
     public String askFullName() throws IOException {
         System.out.println("Enter the full name: ");
@@ -122,7 +151,10 @@ public class InterrogatorCLI implements Interrogate {
             }
         }
     }
-
+    /**
+     * Asks user for employees count.
+     * @return employees count.
+     */
     @Override
     public long askEmployeesCount() throws IOException {
         System.out.println("Enter employees count:");
@@ -141,7 +173,10 @@ public class InterrogatorCLI implements Interrogate {
             }
         }
     }
-
+    /**
+     * Asks user for organization type.
+     * @return organization type.
+     */
     @Override
     public OrganizationType askType() throws IOException {
         System.out.println("Choose organization type:");
@@ -162,7 +197,10 @@ public class InterrogatorCLI implements Interrogate {
             }
         }
     }
-
+    /**
+     * Asks user for postal address.
+     * @return postal address.
+     */
     @Override
     public Address askPostalAddress() throws IOException {
         System.out.println("Enter address: ");

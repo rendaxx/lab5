@@ -5,6 +5,10 @@ import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
 
+/**
+ * Class for add command. This command adds element in collection managed by CollectionServer.
+ * @see CollectionServer
+ */
 public class AddCommand extends Command {
     private static final String NAME = "add";
     private static final String ARGS = "{element}";
@@ -15,7 +19,12 @@ public class AddCommand extends Command {
         super(NAME, ARGS, DESC);
         this.collectionServer = collectionServer;
     }
-
+    /**
+     * Adds element in collection managed by CollectionServer.
+     * @param args arguments for command
+     * @throws IOException if an I/O error occurs
+     * @throws WrongInputException if input is incorrect
+     */
     @Override
     public void run(String[] args) throws IOException, WrongInputException {
         collectionServer.addElement();

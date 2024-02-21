@@ -6,7 +6,9 @@ import com.rendaxx.collection_object.OrganizationType;
 import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
-
+/**
+ * Interface for asking user input.
+ */
 public interface Interrogate {
     String askName() throws IOException, WrongInputException;
     Coordinates askCoordinates() throws IOException, WrongInputException;

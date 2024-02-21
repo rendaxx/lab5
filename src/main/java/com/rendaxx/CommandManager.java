@@ -7,7 +7,9 @@ import com.rendaxx.exceptions.WrongInputException;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-
+/**
+ * Class for managing commands.
+ */
 public class CommandManager {
     private final LinkedHashMap<String, Command> commandByName;
 
@@ -32,7 +34,13 @@ public class CommandManager {
 
     }
 
-
+    /**
+     * Executes command.
+     * @param input command input.
+     * @throws UnknownCommandException if command does not exist.
+     * @throws IOException if I/O error occurs.
+     * @throws WrongInputException if input is wrong.
+     */
     public void execute(CommandInput input) throws UnknownCommandException, IOException, WrongInputException {
         Command command = commandByName.get(input.getName());
         if (command == null) {
